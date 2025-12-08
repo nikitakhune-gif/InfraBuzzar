@@ -1,0 +1,77 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+
+}
+:root{
+    --bg-color: #23252a;
+    --text-color: #f7faf9;
+    --btn-bg: #0286aa;
+    --btn-hover: #039cc6;
+}
+body{
+    min-height: 100vh;
+}
+header{
+    position: fixed;
+    background: var(--bg-color);
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 9%;
+    transition: all .50s ease;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    font-size:1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-family: cursive;
+
+}
+.NavLinks{
+    display: flex;
+}
+.NavLinks a{
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 5px 0;
+    margin: 0 30px;
+    transition: all .50s ease;
+     
+}
+.NavLinks a:hover,.NavLinks a.active{
+    color: var(--bg-hover)
+}
+.user{
+    display: flex;
+    align-items: center;
+    background-color: var(--btn-bg);
+    padding: 10px 12px;
+    border: none;
+    border-radius:10px;
+    cursor: pointer;
+    color: #f7faf9;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all .50s ease;
+}
+.user i{
+    color: var(--text-color);
+    font-size: 26px;
+    margin-right: 7px;
+}
+.user:hover{
+    background-color:#039cc6;
+}

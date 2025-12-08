@@ -1,0 +1,36 @@
+﻿@model List<InfraBuzzar.Models.Product>
+
+<table class="table">
+    <tr>
+        <th>Product-Id</th>
+        <th>Product-Name</th>
+        <th>Quantity</th>
+        <th>Total Amount</th>
+    </tr>
+
+    @foreach (var prod in Model)
+    {
+        <tr>
+            <td>@prod.ProductId</td>
+            <td>@prod.ProductName</td>
+            <td>
+                <input type="number" id="quantity-@prod.ProductId" />
+            </td>
+            <td>
+                <p id="amount-@prod.ProductId"></p>
+
+                <button type="button" onclick="calculatePrice(@prod.ProductPrice, '@prod.ProductId')">
+                    Calculate
+                </button>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    function calculatePrice(price, id) {
+        let qty = $("#quantity-" + id).val();
+        let total = price * qty;
+        $("#amount-" + id).html(total);
+    }
+</script>

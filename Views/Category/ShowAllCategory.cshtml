@@ -1,0 +1,32 @@
+﻿@model List<InfraBuzzar.Models.Category>
+
+<table class="table">
+    <tr>
+        <th>Category-ID</th>
+        <th>Category-Name</th>
+        <th>Action</th>
+    </tr>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var cat in Model)
+        {
+            <tr>
+                <td>@cat.CategoryId</td>
+                <td>@cat.CategoryName</td>
+                <td>
+                    <a href="/Category/DeleteCategory/@cat.CategoryId">DELETE</a>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="3" style="color:red;">No categories found.</td>
+        </tr>
+    }
+</table>
+
+<a href="/Category/AddCategory">Add New Category</a>
+

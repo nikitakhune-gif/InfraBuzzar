@@ -1,0 +1,78 @@
+﻿@model InfraBuzzar.Models.User
+
+@{
+    ViewData["Title"] = "AddUser";
+}
+
+<link rel="stylesheet" href="~/css/AddUser.css" asp-append-version="true" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<center>
+    <div class="row" id="adduserdivcenter">
+        <div class="col-md-4">
+
+            <form id="adduser" novalidate class="needs-validation">
+
+                <div class="form-group">
+                    FirstName:
+                    <input type="text" class="form-control" id="firstname" />
+                </div>
+
+                <div class="form-group">
+                    LastName:
+                    <input type="text" class="form-control" id="lastname" />
+                </div>
+
+                <div class="form-group">
+                    Email:
+                    <input type="email" class="form-control" id="email" />
+                </div>
+
+                <div class="form-group">
+                    Password:
+                    <input type="password" class="form-control" id="password" />
+                </div>
+
+                <div class="form-group">
+                    Role:
+                    <select id="role" class="form-control">
+                        <option value="admin">Admin</option>
+                        <option value="manager">Manager</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+
+                 <div class="form-group" id="addbtn">
+                    <button type="button" class="btn btn-primary" onclick="addUser()">Add</button>
+                    <a href="/Admin/ShowAllUser">View All</a>
+                </div> 
+               
+
+            </form>
+
+        </div>
+    </div>
+</center>
+
+
+<script type="text/javascript">
+    function addUser() {
+
+        let user = {
+            FirstName: $("#firstname").val(),
+            LastName: $("#lastname").val(),
+            Email: $("#email").val(),
+            Password: $("#password").val(),
+            Role: $("#role").val(),
+            Active: 1
+        };
+
+        axios.post("/Admin/AddUser", user)
+            .then(response => {
+                if (response.data === true) {
+                    window.location.href = "/Admin/ShowAllUser";
+                }
+            });
+    }
+</script>
