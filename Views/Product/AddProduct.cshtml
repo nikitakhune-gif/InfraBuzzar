@@ -3,83 +3,185 @@
 @{
     ViewData["Title"] = "AddProduct";
 }
-<link rel="stylesheet" href="~/css/AddProduct.css" asp-append-version="true" />
-<center>
-    <div class="row">
-        <div class="col-md-4" id="addproduct">
+
+<style>
+    :root {
+        --ib-primary: #1e3c72;
+        --ib-primary-dark: #142a52;
+        --ib-accent: #ff8c42;
+        --ib-light-bg: #f6f8fb;
+    }
+
+    .addproduct-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 2.5rem 1rem 3.5rem;
+    }
+
+    .addproduct-card {
+        width: 100%;
+        max-width: 560px;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 10px 32px rgba(20, 42, 82, 0.12);
+        overflow: hidden;
+    }
+
+    .addproduct-head {
+        background: linear-gradient(90deg, var(--ib-primary) 0%, #2a5298 100%);
+        padding: 2rem 2rem 1.6rem;
+        text-align: center;
+        position: relative;
+    }
+
+        .addproduct-head .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            margin-bottom: 0.7rem;
+        }
+
+        .addproduct-head h2 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+            .addproduct-head h2 span {
+                color: var(--ib-accent);
+            }
+
+        .addproduct-head p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+            margin: 0.4rem 0 0;
+        }
+
+    .addproduct-body {
+        padding: 2rem 2.2rem 2.2rem;
+    }
+
+        .addproduct-body .form-group {
+            margin-bottom: 1.15rem;
+        }
+
+        .addproduct-body label {
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--ib-primary-dark);
+            margin-bottom: 0.35rem;
+            display: inline-block;
+        }
+
+        .addproduct-body .form-control,
+        .addproduct-body select.form-control {
+            border: 1px solid #e1e5ee;
+            border-radius: 10px;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.92rem;
+            background-color: var(--ib-light-bg);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+            .addproduct-body .form-control:focus {
+                border-color: var(--ib-primary);
+                box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.12);
+                background-color: #fff;
+                outline: none;
+            }
+
+        .addproduct-body .text-danger {
+            font-size: 0.8rem;
+        }
+
+    #productbtn {
+        width: 100%;
+        background-color: var(--ib-accent);
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+        border-radius: 24px;
+        margin-top: 0.5rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        #productbtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 140, 66, 0.4);
+        }
+</style>
+
+<div class="addproduct-wrapper">
+    <div class="addproduct-card">
+        <div class="addproduct-head">
+            <span class="badge-tag">Admin Console</span>
+            <h2>Add New <span>Product</span></h2>
+            <p>Fill in the details below to list a new product</p>
+        </div>
+
+        <div class="addproduct-body">
             <form asp-action="AddProduct" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                 <div class="form-group">
                     <label asp-for="ProductName" class="control-label"></label>
-                    <input asp-for="ProductName" class="form-control" />
+                    <input asp-for="ProductName" class="form-control" placeholder="Enter product name" />
                     <span asp-validation-for="ProductName" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="ProductDescription" class="control-label"></label>
-                    <input asp-for="ProductDescription" class="form-control" />
+                    <input asp-for="ProductDescription" class="form-control" placeholder="Short description" />
                     <span asp-validation-for="ProductDescription" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="ProductPrice" class="control-label"></label>
-                    <input asp-for="ProductPrice" class="form-control" />
+                    <input asp-for="ProductPrice" class="form-control" placeholder="e.g. 499" />
                     <span asp-validation-for="ProductPrice" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="ProductUnit" class="control-label"></label>
-                    <input asp-for="ProductUnit" class="form-control" />
+                    <input asp-for="ProductUnit" class="form-control" placeholder="e.g. kg, piece, bag" />
                     <span asp-validation-for="ProductUnit" class="text-danger"></span>
                 </div>
-              @*   <div class="form-group">
-                    <label asp-for="CategoryId" class="control-label"></label>
-
-                    <select asp-for="CategoryId" class="form-control">
-                        @{
-                            List<Category> catlist = ViewData["Categories"] as List<Category>;
-                            foreach (Category cat in catlist)
-                            {
-                                <option asp-for="CategoryId" value="@cat.CategoryId">@cat.CategoryName</option>
-                            }
-
-                        }
-                    </select>
-
-
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                </div> *@
 
                 <div class="form-group">
                     <label asp-for="CategoryId" class="control-label"></label>
-
                     <select asp-for="CategoryId" class="form-control">
                         <option value="">-- Select Category --</option>
-
                         @foreach (var cat in (List<Category>)ViewData["Categories"])
                         {
                             <option value="@cat.CategoryId">@cat.CategoryName</option>
                         }
                     </select>
-
                     <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
-
 
                 <div class="form-group">
                     <label asp-for="Image" class="control-label"></label>
                     <input asp-for="Image" class="form-control" />
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
-                    <input type="submit" id="productbtn" value="Add" class="btn btn-primary" />
+                    <input type="submit" id="productbtn" value="Add Product" class="btn" />
                 </div>
             </form>
         </div>
     </div>
-</center>
-
+</div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-

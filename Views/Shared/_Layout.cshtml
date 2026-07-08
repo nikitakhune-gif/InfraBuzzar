@@ -1,18 +1,207 @@
-﻿@*  <!DOCTYPE html>
+﻿@*
+    _Layout.cshtml - InfraBuzzar
+    Stylish, modernized shared layout with gradient navbar,
+    animated hover links and a richer footer.
+*@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - InfraBuzzar</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/InfraBuzzar.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Infra_Mart.styles.css" asp-append-version="true" />
+
+    <style>
+            :root {
+                --ib-primary: #1e3c72;
+                --ib-primary-dark: #142a52;
+                --ib-accent: #ff8c42;
+                --ib-light-bg: #f6f8fb;
+            }
+
+            body {
+                font-family: 'Poppins', 'Segoe UI', sans-serif;
+                background-color: var(--ib-light-bg);
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            main.pb-3 {
+                flex: 1;
+            }
+
+            /* ---------- Navbar ---------- */
+            .ib-navbar {
+                background: linear-gradient(90deg, var(--ib-primary) 0%, #2a5298 100%);
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+                padding: 0.35rem 0;
+            }
+
+                .ib-navbar .navbar-brand {
+                    font-weight: 700;
+                    font-size: 1.25rem;
+                    color: #fff !important;
+                    letter-spacing: 0.5px;
+                }
+
+                    .ib-navbar .navbar-brand span {
+                        color: var(--ib-accent);
+                    }
+
+                .ib-navbar .nav-link {
+                    color: rgba(255, 255, 255, 0.9) !important;
+                    font-weight: 500;
+                    font-size: 0.88rem;
+                    margin: 0 2px;
+                    padding: 0.4rem 0.7rem !important;
+                    border-radius: 6px;
+                    position: relative;
+                    transition: all 0.25s ease;
+                    white-space: nowrap;
+                }
+
+                    .ib-navbar .nav-link i {
+                        font-size: 0.85rem;
+                    }
+
+                    .ib-navbar .nav-link:hover,
+                    .ib-navbar .nav-link:focus {
+                        color: #fff !important;
+                        background-color: rgba(255, 255, 255, 0.12);
+                    }
+
+                    .ib-navbar .nav-link.active {
+                        color: #fff !important;
+                        background-color: var(--ib-accent);
+                    }
+
+                .ib-navbar .btn-signup {
+                    background-color: var(--ib-accent);
+                    border: none;
+                    color: #fff;
+                    font-weight: 600;
+                    font-size: 0.85rem;
+                    padding: 0.4rem 1rem;
+                    border-radius: 20px;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+
+                /* ---------- Admin dropdown ---------- */
+                .ib-navbar .dropdown-menu {
+                    background: var(--ib-primary-dark);
+                    border: none;
+                    border-radius: 10px;
+                    margin-top: 0.4rem;
+                    padding: 0.4rem;
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+                }
+
+                .ib-navbar .dropdown-item {
+                    color: rgba(255, 255, 255, 0.85);
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    padding: 0.5rem 0.8rem;
+                    border-radius: 6px;
+                    transition: all 0.2s ease;
+                }
+
+                    .ib-navbar .dropdown-item i {
+                        width: 18px;
+                    }
+
+                    .ib-navbar .dropdown-item:hover,
+                    .ib-navbar .dropdown-item:focus {
+                        background-color: var(--ib-accent);
+                        color: #fff;
+                    }
+
+                .ib-navbar .dropdown-toggle::after {
+                    vertical-align: 0.15em;
+                }
+
+                .ib-navbar .btn-signup:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 14px rgba(255, 140, 66, 0.45);
+                    color: #fff;
+                }
+
+            .navbar-toggler {
+                border: none;
+            }
+
+                .navbar-toggler:focus {
+                    box-shadow: none;
+                }
+
+            /* ---------- Footer ---------- */
+            .ib-footer {
+                background: var(--ib-primary-dark);
+                color: #e6e9f0;
+                padding: 2rem 0 1rem;
+                margin-top: 3rem;
+            }
+
+                .ib-footer h6 {
+                    color: #fff;
+                    font-weight: 600;
+                    margin-bottom: 0.9rem;
+                }
+
+                .ib-footer a {
+                    color: #c7cfe0;
+                    text-decoration: none;
+                    transition: color 0.2s ease;
+                }
+
+                    .ib-footer a:hover {
+                        color: var(--ib-accent);
+                    }
+
+                .ib-footer .social-icons a {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.08);
+                    margin-right: 8px;
+                    font-size: 1rem;
+                }
+
+                    .ib-footer .social-icons a:hover {
+                        background: var(--ib-accent);
+                        color: #fff;
+                    }
+
+                .ib-footer .copyright {
+                    border-top: 1px solid rgba(255, 255, 255, 0.12);
+                    margin-top: 1.5rem;
+                    padding-top: 1rem;
+                    font-size: 0.9rem;
+                    text-align: center;
+                    color: #9aa3b8;
+                }
+
+            .container {
+                max-width: 1200px;
+            }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm ib-navbar mb-4 sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">InfraBuzzar</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    Infra<span>Buzzar</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,104 +209,165 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">HomePage</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door me-1"></i>Home
+                            </a>
                         </li>
+                        @* <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
+                                <i class="bi bi-info-circle me-1"></i>About
+                            </a>
+                        </li> *@
+
+                        <li>
+                            <a class="dropdown-item" asp-controller="Product" asp-action="AddProduct">
+                                <i class="bi bi-box-seam me-2"></i>Add Product
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-controller="Admin" asp-action="AddUser">
+                                <i class="bi bi-person-plus me-2"></i> Create User
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" asp-controller="Category" asp-action="AddCategory">
+                                <i class="bi bi-tags me-2"></i>Category 
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-speedometer2 me-1"></i>Admin
+                            </a>
+                            <ul class="dropdown-menu">
+                               
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="Admin">
+                                        <i class="bi bi-card-list me-2"></i>Product Management
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="ViewAllAdmin">
+                                        <i class="bi bi-card-list me-2"></i> All Product
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Category" asp-action="ShowAllCategory">
+                                        <i class="bi bi-tags me-2"></i>Category Management
+                                    </a>
+                                </li>
+                               
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="ShowAllUser">
+                                        <i class="bi bi-people me-2"></i>User Management
+                                    </a>
+                                </li>
+                            </ul>
+                            </li>
+                            
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-truck me-1"></i> Shopping
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Product" asp-action="ViewAll">
+                                        <i class="bi bi-box-seam me-2"></i> Products
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Cart" asp-action="ShowCart">
+                                        <i class="bi bi-cart3 me-2"></i> Cart
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                       
+                       
+                    </ul>
+                    <ul class="navbar-nav align-items-sm-center">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                            </a>
+                        </li>
+                        <li class="nav-item ms-sm-2 mt-2 mt-sm-0">
+                            <a class="btn btn-signup" asp-area="" asp-controller="Home" asp-action="SignUp">
+                                Sign Up
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="ib-footer">
         <div class="container">
-            &copy; 2025 - InfraBuzzar - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>  *@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @* <title>@ViewData["Title"] - Infra_Mart</title>*@
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Infra_Mart.styles.css" asp-append-version="true" />
-</head>
-<body>
-     <header>
-      <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">InfraBuzzar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">HomePage</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">About</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Loginpage</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">SignUp</a>
-                        </li>
-                        
-
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h6>InfraBuzzar</h6>
+                    <p class="mb-0">
+                        Connecting buyers and vendors through a reliable marketplace for construction materials, equipment, and infrastructure solutions.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h6>Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                       
-
-
                     </ul>
                 </div>
+                <div class="col-md-4">
+                    <h6>Connect with us</h6>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
             </div>
-        </nav>
-    </header> 
-
-    
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - InfraBuzzar - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="copyright">
+                &copy; 2025 - InfraBuzzar - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        const currentPath = window.location.pathname.toLowerCase().replace(/\/$/, "");
+
+        document.querySelectorAll(".ib-navbar .nav-link").forEach(function (link) {
+
+        const linkPath = new URL(link.href).pathname.toLowerCase().replace(/\/$/, "");
+
+        if (currentPath === linkPath) {
+        link.classList.add("active");
+        } else {
+        link.classList.remove("active");
+        }
+        });
+
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
- 
-
-
-
-
-
-

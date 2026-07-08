@@ -1,43 +1,123 @@
 ﻿@{
     ViewData["Title"] = "Login Page";
 }
+<style>
+    .hero-section {
+        background: linear-gradient(180deg, rgba(42,82,152,0.05), rgba(30,60,114,0.03));
+        padding: 4rem 1rem;
+        font-family: 'Poppins', sans-serif;
+    }
 
-<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
-<center className="center">
-    <header>
-        <h1>Welcome to InfraMart</h1>
-    </header>
-    <main>
-        <form className="form_class" method="post" action="/Home/Login">
-            <div class="form-outline mb-4">
-                <label class="form-label" for="form2Example1">Email address</label><br />
-                <input type="text" id="email" name="email" />
+    .auth-card {
+        max-width: 450px;
+        width: 100%;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 2rem;
+        box-shadow: 0 6px 18px rgba(30,60,114,0.08);
+        transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+        .auth-card:hover {
+            transform: translateY(-4px);
+        }
+
+    .card-title {
+        color: #1e3c72;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .input-group-text {
+        background: transparent;
+        border-right: 0;
+        color: #1e3c72;
+    }
+
+    .form-control {
+        border-left: 0;
+    }
+
+    .form-floating .form-control::placeholder {
+        color: #6c757d;
+    }
+
+    .btn-hero-primary {
+        background: #ff8c42;
+        color: #fff;
+        border-radius: 30px;
+        font-weight: 600;
+        border: none;
+        padding: .6rem 1.25rem;
+        box-shadow: 0 6px 18px rgba(255,140,66,0.12);
+        transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,140,66,0.18);
+        }
+
+    .link-muted {
+        color: #1e3c72;
+        text-decoration: none;
+    }
+
+    .link-accent {
+        color: #ff8c42;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .small-muted {
+        color: #6c757d;
+        font-size: .9rem
+    }
+
+    @@media (max-width: 576px) {
+        .auth-card {
+            width: 90%;
+            padding: 1.25rem;
+        }
+    }
+</style>
+
+<section class="hero-section">
+    <div class="auth-card">
+        <h2 class="card-title">Welcome Back</h2>
+        <form method="post" action="/Home/Login" novalidate>
+            <div class="mb-3">
+                <label for="identifier" class="form-label small-muted"><i class="bi bi-person me-2"></i>Username or Email</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <!-- FIX: was "email"/type=text but only accepted an
+                         email-looking value in practice because the
+                         backend queried by Email only. Renamed to
+                         "identifier" so it's clear this can be either a
+                         username or an email; backend must match on both
+                         (see note below). -->
+                    <input type="text" id="identifier" name="identifier" class="form-control" placeholder="username or you@company.com" />
+                </div>
             </div>
 
-            <!-- Password input -->
-            <div class="form-outline mb-4">
-                <label class="form-label" for="form2Example2">Password</label><br />
-                <input type="password" id="password" name="password" />
-            </div>
-            <button className="submit_class" id="submitbutton"
-                    type="submit">
-                Login
-            </button>
-
-            <div className="info_div">
-                <p>
-                    Register If Do Not Have Account
-                    <a href="/Home/SignUp">register</a>
-                </p>
+            <div class="mb-4">
+                <label for="password" class="form-label small-muted"><i class="bi bi-lock me-2"></i>Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" />
+                </div>
             </div>
 
-            <div className="info_div">
-                <p>
-
-                    <a href="/ForgotPassword/Forgotpass">ForgotPassword</a>
-                </p>
+            <div class="d-grid mb-3">
+                <button type="submit" id="submitbutton" class="btn btn-hero-primary">Login</button>
             </div>
 
+            <div class="d-flex justify-content-between">
+                <p class="mb-0 small-muted">Don't have an account? <a class="link-accent ms-1" href="/Home/SignUp">Register</a></p>
+                <p class="mb-0"><a class="link-muted" href="/ForgotPassword/Forgotpass">Forgot password?</a></p>
+            </div>
         </form>
-    </main>
-</center>
+    </div>
+</section>

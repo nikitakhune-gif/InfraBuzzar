@@ -47,28 +47,30 @@
 
 }
 <script type="text/javascript">
-        var productList = new Array()
     function addCart(Id) {
-        id=Id;
-        productList.push(id);
-        console.log(productList);
-
+        // Send single product id to server immediately
+        axios.post('/Cart/AddToCart', [Id])
+            .then(function (response) {
+                // success - redirect to cart or show toast
+                console.log('Added to cart', response.data);
+                // Optionally navigate to cart page
+                // window.location.href = '/Cart/ShowCart';
+                alert('Product added to cart');
+            })
+            .catch(function (error) {
+                console.error(error);
+                if (error.response && error.response.status === 401) {
+                    alert('Please Login First');
+                    window.location.href = '/Home/Login';
+                } else {
+                    alert('Failed to add product to cart');
+                }
+            });
     };
+
     function showcart(){
-
-        console.log("showcart function call");
-        let promise1 = axios.post("/Cart/AddToCart", productList);
-        promise1.then((response) => {
-               var result = response.data;
-
-            if (result != null) {
-                console.log(result);
-                window.location.href = "/Cart/ShowCart";
-                    }
-        });
-        promise1.catch((error) => {
-            alert("Please Login First");
-        });
+        // Simply navigate to the cart page (server will use session user)
+        window.location.href = '/Cart/ShowCart';
     }
 </script>
 

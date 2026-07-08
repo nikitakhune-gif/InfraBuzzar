@@ -36,17 +36,25 @@ namespace InfraBuzzar.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string email, string password)
+        public IActionResult Login(string identifier, string password)
         {
 
-            Console.WriteLine(email);
+            Console.WriteLine(identifier);
             Console.WriteLine(password);
             List<User> ulist = userInterface.getAllUser();
             string pass = userInterface.ConvertToEncrypt(password);
             foreach (User u in ulist)
             {
 
-                if (u.Email.Equals(email) && u.Password.Equals(pass))
+                // Allow login using either email or username (FirstName)
+                bool identifierMatches = false;
+                if (!string.IsNullOrWhiteSpace(identifier))
+                {
+                    identifierMatches = string.Equals(u.Email?.Trim(), identifier.Trim(), StringComparison.OrdinalIgnoreCase)
+                                        || string.Equals(u.FirstName?.Trim(), identifier.Trim(), StringComparison.OrdinalIgnoreCase);
+                }
+
+                if (identifierMatches && u.Password.Equals(pass))
                 {
                     //HttpContext.Session.GetObject<User>("LoginUser", u);
                     HttpContext.Session.SetObject("LoginUser", u);
