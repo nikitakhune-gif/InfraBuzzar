@@ -1,0 +1,940 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+    :root {
+        --ib-navy: #1a3d6d;
+        --ib-navy-dark: #12294a;
+        --ib-orange: #f7941d;
+        --ib-orange-dark: #e08312;
+    }
+
+    .ib-about * {
+        box-sizing: border-box;
+    }
+
+    .ib-about {
+        color: #333;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+        .ib-about a {
+            text-decoration: none;
+        }
+
+        .ib-about .section {
+            padding: 70px 20px;
+        }
+
+        .ib-about .container-narrow {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .ib-about .eyebrow-line {
+            width: 55px;
+            height: 4px;
+            background: var(--ib-orange);
+            border-radius: 3px;
+            margin: 10px 0 18px 0;
+        }
+
+            .ib-about .eyebrow-line.center {
+                margin: 10px auto 30px auto;
+            }
+
+    /* NAVBAR */
+    .ib-navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 40px;
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        position: relative;
+        z-index: 10;
+    }
+
+        .ib-navbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .ib-navbar .brand i {
+                font-size: 28px;
+                color: var(--ib-navy);
+            }
+
+            .ib-navbar .brand .brand-text h5 {
+                margin: 0;
+                font-weight: 800;
+                color: var(--ib-navy);
+                font-size: 18px;
+            }
+
+            .ib-navbar .brand .brand-text small {
+                color: #999;
+                font-size: 11px;
+                letter-spacing: 0.5px;
+            }
+
+        .ib-navbar .nav-links {
+            display: flex;
+            gap: 34px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            .ib-navbar .nav-links a {
+                color: #333;
+                font-weight: 600;
+                font-size: 14.5px;
+                padding-bottom: 6px;
+            }
+
+                .ib-navbar .nav-links a.active {
+                    color: var(--ib-navy);
+                    border-bottom: 2px solid var(--ib-navy);
+                }
+
+        .ib-navbar .login-btn {
+            background: var(--ib-navy);
+            color: #fff;
+            padding: 9px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+            .ib-navbar .login-btn:hover {
+                background: var(--ib-navy-dark);
+                color: #fff;
+            }
+
+    @@media (max-width: 900px) {
+        .ib-navbar .nav-links {
+            display: none;
+        }
+    }
+
+    /* HERO */
+    .ib-hero {
+        position: relative;
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(100deg, rgba(15,30,55,0.88) 20%, rgba(15,30,55,0.45) 65%), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+        color: #fff;
+        padding: 0 40px;
+    }
+
+        .ib-hero .hero-content {
+            max-width: 560px;
+        }
+
+            .ib-hero .hero-content h1 {
+                font-weight: 800;
+                font-size: 46px;
+                margin-bottom: 4px;
+            }
+
+            .ib-hero .hero-content p {
+                color: #e6ebf3;
+                font-size: 15.5px;
+                line-height: 1.7;
+                margin-bottom: 26px;
+            }
+
+                .ib-hero .hero-content p b {
+                    color: #fff;
+                }
+
+        .ib-hero .hero-btn {
+            background: var(--ib-orange);
+            color: #fff;
+            font-weight: 700;
+            padding: 13px 26px;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 14.5px;
+        }
+
+            .ib-hero .hero-btn:hover {
+                background: var(--ib-orange-dark);
+                color: #fff;
+            }
+
+    /* WHO WE ARE */
+    .ib-who-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: 50px;
+        align-items: start;
+    }
+
+        .ib-who-grid h2 {
+            color: var(--ib-navy);
+            font-weight: 800;
+            font-size: 28px;
+        }
+
+        .ib-who-grid p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+    .ib-info-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 30px;
+    }
+
+    .ib-info-card {
+        display: flex;
+        gap: 16px;
+        padding: 22px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .ib-info-cards .ib-info-card:nth-child(1),
+    .ib-info-cards .ib-info-card:nth-child(2) {
+        border-top: 1px solid #eee;
+    }
+
+    .ib-info-card .icon-circle {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        border-radius: 50%;
+        background: #eaf1fb;
+        color: var(--ib-navy);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 19px;
+    }
+
+    .ib-info-card h6 {
+        color: var(--ib-navy);
+        font-weight: 700;
+        margin-bottom: 6px;
+        font-size: 15px;
+    }
+
+    .ib-info-card p {
+        font-size: 13.5px;
+        color: #666;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    @@media (max-width: 850px) {
+        .ib-who-grid, .ib-info-cards {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* WHAT WE OFFER */
+    .ib-offer-section {
+        background: #f4f7fb;
+        text-align: center;
+    }
+
+        .ib-offer-section h2 {
+            color: var(--ib-navy);
+            font-weight: 800;
+            font-size: 26px;
+        }
+
+    .ib-offer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    @@media (max-width: 900px) {
+        .ib-offer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .ib-offer-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 30px 16px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        transition: transform 0.15s;
+    }
+
+        .ib-offer-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .ib-offer-card i {
+            font-size: 30px;
+            color: var(--ib-navy);
+            margin-bottom: 14px;
+        }
+
+        .ib-offer-card h6 {
+            font-weight: 700;
+            color: #222;
+            font-size: 14.5px;
+            margin-bottom: 10px;
+        }
+
+        .ib-offer-card .mini-line {
+            width: 26px;
+            height: 3px;
+            background: var(--ib-orange);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+    /* STATS BAR */
+    .ib-stats-bar {
+        background: var(--ib-navy);
+        color: #fff;
+        padding: 45px 20px;
+    }
+
+    .ib-stats-grid {
+        max-width: 1140px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        text-align: center;
+    }
+
+        .ib-stats-grid > div {
+            border-right: 1px solid rgba(255,255,255,0.15);
+        }
+
+            .ib-stats-grid > div:last-child {
+                border-right: none;
+            }
+
+        .ib-stats-grid i {
+            font-size: 26px;
+            color: var(--ib-orange);
+            margin-bottom: 10px;
+        }
+
+        .ib-stats-grid h3 {
+            font-weight: 800;
+            font-size: 30px;
+            margin: 6px 0 4px 0;
+        }
+
+        .ib-stats-grid span {
+            font-size: 13.5px;
+            color: #d6dfec;
+        }
+
+    @@media (max-width: 800px) {
+        .ib-stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px 0;
+        }
+
+            .ib-stats-grid > div {
+                border-right: none;
+            }
+    }
+
+    /* MISSION & VISION */
+    .ib-mv-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 45px;
+        align-items: center;
+    }
+
+        .ib-mv-grid img {
+            width: 100%;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .ib-mv-grid h2 {
+            color: var(--ib-navy);
+            font-weight: 800;
+            font-size: 26px;
+        }
+
+        .ib-mv-grid > div p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+    .ib-mv-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .ib-mv-item {
+        display: flex;
+        gap: 14px;
+    }
+
+        .ib-mv-item .icon-circle {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 50%;
+            background: #fef1de;
+            color: var(--ib-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+        }
+
+        .ib-mv-item h6 {
+            color: var(--ib-navy);
+            font-weight: 700;
+            font-size: 14.5px;
+            margin-bottom: 4px;
+        }
+
+        .ib-mv-item p {
+            font-size: 13.5px;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+    @@media (max-width: 850px) {
+        .ib-mv-grid, .ib-mv-cols {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* CORE VALUES + INDUSTRIES */
+    .ib-cv-section {
+        background: #f4f7fb;
+    }
+
+    .ib-cv-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: 40px;
+    }
+
+        .ib-cv-grid h4 {
+            color: var(--ib-navy);
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+    .ib-cv-items {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 24px;
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
+    .ib-cv-item {
+        text-align: center;
+        flex: 1;
+        min-width: 80px;
+    }
+
+        .ib-cv-item .icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #fff;
+            color: var(--ib-navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin: 0 auto 10px auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .ib-cv-item span {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+
+    .ib-ind-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-top: 24px;
+    }
+
+    .ib-ind-item {
+        background: #fff;
+        border-radius: 10px;
+        padding: 20px 10px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+        .ib-ind-item i {
+            font-size: 24px;
+            color: var(--ib-navy);
+            margin-bottom: 10px;
+        }
+
+        .ib-ind-item span {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+    @@media (max-width: 850px) {
+        .ib-cv-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .ib-ind-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* FOOTER */
+    .ib-footer {
+        background: var(--ib-navy-dark);
+        color: #cfd8e6;
+        padding: 55px 20px 0 20px;
+    }
+
+    .ib-footer-grid {
+        max-width: 1140px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+        gap: 30px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .ib-footer h6 {
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 18px;
+        font-size: 15px;
+    }
+
+    .ib-footer .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+        .ib-footer .brand i {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ib-footer .brand h6 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .ib-footer .brand small {
+            color: #9fb0c8;
+            font-size: 11px;
+        }
+
+    .ib-footer p {
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: #b7c3d6;
+    }
+
+    .ib-footer .socials {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+        .ib-footer .socials a {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+    .ib-footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .ib-footer ul li {
+            margin-bottom: 12px;
+        }
+
+            .ib-footer ul li a {
+                color: #b7c3d6;
+                font-size: 13.5px;
+            }
+
+                .ib-footer ul li a:hover {
+                    color: var(--ib-orange);
+                }
+
+    .ib-footer .contact-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 14px;
+        font-size: 13.5px;
+        color: #b7c3d6;
+    }
+
+        .ib-footer .contact-item i {
+            color: var(--ib-orange);
+            margin-top: 2px;
+        }
+
+    .ib-footer-bottom {
+        max-width: 1140px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0;
+        font-size: 12.5px;
+        color: #9fb0c8;
+    }
+
+    @@media (max-width: 850px) {
+        .ib-footer-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+</style>
+
+<div class="ib-about">
+
+   
+
+    <!-- HERO -->
+    <section class="ib-hero">
+        <div class="hero-content">
+            <h1>About Us</h1>
+            <div class="eyebrow-line"></div>
+            <p>
+                Connecting buyers and vendors for a smarter tomorrow.<br />
+                <b>Our Infrastructure Marketplace Platform</b> is designed to deliver
+                transparency and efficiency in every transaction we power.
+            </p>
+            <a href="/Product/ViewAll" class="hero-btn">Explore Marketplace</a>
+        </div>
+    </section>
+
+    <!-- WHO WE ARE -->
+    <section class="section">
+        <div class="container-narrow ib-who-grid">
+            <div>
+                <h2>Who We Are</h2>
+                <div class="eyebrow-line"></div>
+                <p>
+                    We are a smart infrastructure equipment marketplace built to help buyers and vendors
+                    list, discover, and procure equipment efficiently. Our platform brings together people,
+                    processes and technology to ensure transparency, timely delivery and optimal use of
+                    resources.
+                </p>
+            </div>
+            <div class="ib-info-cards">
+                <div class="ib-info-card">
+                    <div class="icon-circle"><i class="bi bi-bullseye"></i></div>
+                    <div>
+                        <h6>Our Mission</h6>
+                        <p>To empower buyers and vendors with innovative tools that enhance procurement efficiency and quality.</p>
+                    </div>
+                </div>
+                <div class="ib-info-card">
+                    <div class="icon-circle"><i class="bi bi-eye"></i></div>
+                    <div>
+                        <h6>Our Vision</h6>
+                        <p>To be a trusted global marketplace for infrastructure equipment and vendor excellence.</p>
+                    </div>
+                </div>
+                <div class="ib-info-card">
+                    <div class="icon-circle"><i class="bi bi-graph-up-arrow"></i></div>
+                    <div>
+                        <h6>Our Goal</h6>
+                        <p>Deliver orders on time, within budget and with the highest quality standards.</p>
+                    </div>
+                </div>
+                <div class="ib-info-card">
+                    <div class="icon-circle"><i class="bi bi-hand-thumbs-up"></i></div>
+                    <div>
+                        <h6>Our Commitment</h6>
+                        <p>Committed to innovation, transparency, security and customer satisfaction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT WE OFFER -->
+    <section class="section ib-offer-section">
+        <div class="container-narrow">
+            <h2>What We Offer</h2>
+            <div class="eyebrow-line center"></div>
+            <div class="ib-offer-grid">
+                <div class="ib-offer-card">
+                    <i class="bi bi-clipboard-data"></i>
+                    <h6>Product Catalog</h6>
+                    <div class="mini-line"></div>
+                </div>
+                <div class="ib-offer-card">
+                    <i class="bi bi-people"></i>
+                    <h6>Vendor Management</h6>
+                    <div class="mini-line"></div>
+                </div>
+                <div class="ib-offer-card">
+                    <i class="bi bi-currency-rupee"></i>
+                    <h6>Pricing &amp; Cost Tracking</h6>
+                    <div class="mini-line"></div>
+                </div>
+                <div class="ib-offer-card">
+                    <i class="bi bi-list-check"></i>
+                    <h6>Order Monitoring</h6>
+                    <div class="mini-line"></div>
+                </div>
+                <div class="ib-offer-card">
+                    <i class="bi bi-folder2-open"></i>
+                    <h6>Document Management</h6>
+                    <div class="mini-line"></div>
+                </div>
+                <div class="ib-offer-card">
+                    <i class="bi bi-shield-check"></i>
+                    <h6>Secure Authentication</h6>
+                    <div class="mini-line"></div>
+                </div>
+                <div class="ib-offer-card">
+                    <i class="bi bi-search"></i>
+                    <h6>Search &amp; Filter</h6>
+                    <div class="mini-line"></div>
+                </div>
+                <div class="ib-offer-card">
+                    <i class="bi bi-pie-chart"></i>
+                    <h6>Reports &amp; Analytics</h6>
+                    <div class="mini-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <section class="ib-stats-bar">
+        <div class="ib-stats-grid">
+            <div>
+                <i class="bi bi-box-seam"></i>
+                <h3>500+</h3>
+                <span>Products Listed</span>
+            </div>
+            <div>
+                <i class="bi bi-shop"></i>
+                <h3>150+</h3>
+                <span>Vendors Onboarded</span>
+            </div>
+            <div>
+                <i class="bi bi-patch-check"></i>
+                <h3>98%</h3>
+                <span>Order Success Rate</span>
+            </div>
+            <div>
+                <i class="bi bi-headset"></i>
+                <h3>24/7</h3>
+                <span>Support Available</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISSION & VISION -->
+    <section class="section">
+        <div class="container-narrow ib-mv-grid">
+            <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=900&auto=format&fit=crop" alt="Infrastructure" />
+            <div>
+                <h2>Our Mission &amp; Vision</h2>
+                <div class="eyebrow-line"></div>
+                <p>
+                    We aim to create a digital ecosystem that connects buyers and vendors, tracks orders in
+                    real time, manages procurement efficiently, and ensures every transaction is completed
+                    successfully.
+                </p>
+                <div class="ib-mv-cols">
+                    <div class="ib-mv-item">
+                        <div class="icon-circle"><i class="bi bi-people"></i></div>
+                        <div>
+                            <h6>Mission</h6>
+                            <p>To provide a reliable marketplace that simplifies procurement and drives business success.</p>
+                        </div>
+                    </div>
+                    <div class="ib-mv-item">
+                        <div class="icon-circle"><i class="bi bi-eye"></i></div>
+                        <div>
+                            <h6>Vision</h6>
+                            <p>To become a leading platform for infrastructure equipment trade through technology and trust.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE VALUES + INDUSTRIES -->
+    <section class="section ib-cv-section">
+        <div class="container-narrow ib-cv-grid">
+            <div>
+                <h4>Our Core Values</h4>
+                <div class="eyebrow-line"></div>
+                <div class="ib-cv-items">
+                    <div class="ib-cv-item">
+                        <div class="icon-circle"><i class="bi bi-gem"></i></div>
+                        <span>Excellence</span>
+                    </div>
+                    <div class="ib-cv-item">
+                        <div class="icon-circle"><i class="bi bi-shield-lock"></i></div>
+                        <span>Integrity</span>
+                    </div>
+                    <div class="ib-cv-item">
+                        <div class="icon-circle"><i class="bi bi-people"></i></div>
+                        <span>Collaboration</span>
+                    </div>
+                    <div class="ib-cv-item">
+                        <div class="icon-circle"><i class="bi bi-lightbulb"></i></div>
+                        <span>Innovation</span>
+                    </div>
+                    <div class="ib-cv-item">
+                        <div class="icon-circle"><i class="bi bi-award"></i></div>
+                        <span>Accountability</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4>Categories We Serve</h4>
+                <div class="eyebrow-line"></div>
+                <div class="ib-ind-grid">
+                    <div class="ib-ind-item">
+                        <i class="bi bi-cone-striped"></i>
+                        <span>Roads &amp; Highways</span>
+                    </div>
+                    <div class="ib-ind-item">
+                        <i class="bi bi-building"></i>
+                        <span>Buildings &amp; Construction</span>
+                    </div>
+                    <div class="ib-ind-item">
+                        <i class="bi bi-droplet"></i>
+                        <span>Water Supply Equipment</span>
+                    </div>
+                    <div class="ib-ind-item">
+                        <i class="bi bi-lightning-charge"></i>
+                        <span>Power &amp; Energy</span>
+                    </div>
+                    <div class="ib-ind-item">
+                        <i class="bi bi-buildings"></i>
+                        <span>Smart Cities</span>
+                    </div>
+                    <div class="ib-ind-item">
+                        <i class="bi bi-gear"></i>
+                        <span>Industrial Equipment</span>
+                    </div>
+                    <div class="ib-ind-item">
+                        <i class="bi bi-bank"></i>
+                        <span>Government Projects</span>
+                    </div>
+                    <div class="ib-ind-item">
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <span>Urban Development</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ib-footer">
+        <div class="ib-footer-grid">
+            <div>
+                <div class="brand">
+                    <i class="bi bi-building"></i>
+                    <div>
+                        <h6>InfraBuzzar</h6>
+                        <small>BUY &nbsp;|&nbsp; SELL &nbsp;|&nbsp; DELIVER</small>
+                    </div>
+                </div>
+                <p>Empowering infrastructure procurement with a smart marketplace, real-time insights and secure vendor collaboration.</p>
+                <div class="socials">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    <a href="#"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <h6>Quick Links</h6>
+                <ul>
+                    <li><a href="/Home/Index">Home</a></li>
+                    <li><a href="/Product/Index">Products</a></li>
+                    <li><a href="/Vendor/Index">Vendors</a></li>
+                    <li><a href="/Home/About">About Us</a></li>
+                    <li><a href="/Home/Contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h6>Our Services</h6>
+                <ul>
+                    <li><a href="#">Product Listings</a></li>
+                    <li><a href="#">Vendor Onboarding</a></li>
+                    <li><a href="#">Order Tracking</a></li>
+                    <li><a href="#">Quality Monitoring</a></li>
+                    <li><a href="#">Reports &amp; Analytics</a></li>
+                </ul>
+            </div>
+            <div>
+                <h6>Contact Us</h6>
+                <div class="contact-item">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>123, Infrastructure Tower, Smart City, India - 400001</span>
+                </div>
+                <div class="contact-item">
+                    <i class="bi bi-telephone"></i>
+                    <span>+91 98765 43210</span>
+                </div>
+                <div class="contact-item">
+                    <i class="bi bi-envelope"></i>
+                    <span>info@infrabuzzar.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="bi bi-globe"></i>
+                    <span>www.infrabuzzar.com</span>
+                </div>
+            </div>
+        </div>
+        <div class="ib-footer-bottom">
+            <span>&copy; @DateTime.Now.Year InfraBuzzar. All Rights Reserved.</span>
+            <span>Privacy Policy &nbsp;|&nbsp; Terms &amp; Conditions</span>
+        </div>
+    </footer>
+
+</div>

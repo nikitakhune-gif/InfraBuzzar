@@ -10,61 +10,263 @@
 }*@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<body class="body2">
-    <form method="post" action="">
-        <table class="table">
-            <tr>
-                <th>ProductID</th>
-                <th>Prdoduct Name</th>
-                <th>Product Description</th>
-                <th>Product Price</th>
-                <th>Product Unit</th>
-                <th>Product Images</th>
-                <th>Option</th>
-            </tr>
-            <tbody>
-                @{
-                    List<Product> Prodlist = ViewData["products"] as List<Product>;
-                    foreach (Product prod in Prodlist)
-                    {
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<style>
+    :root {
+    --ib-navy: #1a3d6d;
+    --ib-navy-dark: #12294a;
+    --ib-orange: #f7941d;
+    --ib-orange-dark: #e08312;
+    }
+
+    .ib-admin-products-page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 20px 60px 20px;
+    }
+
+    .ib-admin-products-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+    gap: 14px;
+    }
+
+    .ib-admin-products-header h2 {
+    color: var(--ib-navy);
+    font-weight: 800;
+    margin: 0;
+    font-size: 26px;
+    }
+
+    .ib-admin-products-header h2 span {
+    color: var(--ib-orange);
+    }
+
+    .ib-admin-products-header p {
+    color: #777;
+    font-size: 14px;
+    margin: 4px 0 0 0;
+    }
+
+    .ib-products-count {
+    background: #eaf1fb;
+    color: var(--ib-navy);
+    font-weight: 700;
+    font-size: 13.5px;
+    padding: 8px 18px;
+    border-radius: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    }
+
+    .ib-admin-products-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+    overflow: hidden;
+    overflow-x: auto;
+    }
+
+    .ib-admin-products-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 900px;
+    }
+
+    .ib-admin-products-table thead th {
+    background: var(--ib-navy);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 15px 18px;
+    text-align: left;
+    white-space: nowrap;
+    }
+
+    .ib-admin-products-table tbody td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    vertical-align: middle;
+    }
+
+    .ib-admin-products-table tbody tr:last-child td {
+    border-bottom: none;
+    }
+
+    .ib-admin-products-table tbody tr:hover {
+    background: #f7f9fc;
+    }
+
+    .ib-prod-id {
+    color: #999;
+    font-weight: 600;
+    }
+
+    .ib-prod-name {
+    font-weight: 700;
+    color: #1f2937;
+    }
+
+    .ib-prod-desc {
+    color: #666;
+    font-size: 13px;
+    max-width: 260px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    }
+
+    .ib-prod-price {
+    color: var(--ib-navy);
+    font-weight: 800;
+    }
+
+    .ib-prod-unit {
+    background: #f4f7fb;
+    color: #555;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 14px;
+    white-space: nowrap;
+    }
+
+    .ib-prod-thumb {
+    width: 90px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #f4f7fb;
+    border: 1px solid #eee;
+    }
+
+    .ib-delete-btn {
+    background: #fdeceb;
+    color: #d9534f;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 12.5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s;
+    }
+
+    .ib-delete-btn:hover {
+    background: #d9534f;
+    color: #fff;
+    }
+
+    .ib-admin-products-empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: #999;
+    }
+
+    .ib-admin-products-empty i {
+    font-size: 38px;
+    color: #cfd8e6;
+    margin-bottom: 12px;
+    display: block;
+    }
+</style>
+
+@{
+    List<Product> Prodlist = ViewData["products"] as List<Product>;
+}
+
+<div class="ib-admin-products-page">
+    <div class="ib-admin-products-header">
+        <div>
+            <h2>Manage <span>Products</span></h2>
+            <p>View, review and remove products listed on InfraBuzzar</p>
+        </div>
+        <span class="ib-products-count"><i class="bi bi-box-seam"></i> @(Prodlist?.Count ?? 0) Products</span>
+    </div>
+
+    <div class="ib-admin-products-card">
+        @if (Prodlist != null && Prodlist.Count > 0)
+        {
+            <form method="post" action="">
+                <table class="ib-admin-products-table">
+                    <thead>
                         <tr>
-                            <td>@prod.ProductId</td>
-                            <td>@prod.ProductName</td>
-                            <td>@prod.ProductDescription</td>
-                            <td>@prod.ProductPrice</td>
-                            <td>@prod.ProductUnit</td>
-                            <td>
-                                <img src="~/Images/@prod.ProductImage" width="200" height="100" asp-append-version="true">
-                            </td>
-                            <td> <button type="button" onclick="deleteproduct(@prod.ProductId)">Delete</button></td>
-
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Unit</th>
+                            <th>Image</th>
+                            <th>Option</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Product prod in Prodlist)
+                        {
+                            <tr>
+                                <td class="ib-prod-id">#@prod.ProductId</td>
+                                <td class="ib-prod-name">@prod.ProductName</td>
+                                <td class="ib-prod-desc">@prod.ProductDescription</td>
+                                <td class="ib-prod-price">₹ @prod.ProductPrice</td>
+                                <td><span class="ib-prod-unit">@prod.ProductUnit</span></td>
+                                <td>
+                                    <img class="ib-prod-thumb" src="~/Images/@prod.ProductImage" asp-append-version="true" onerror="this.src='/images/no-image.png'" />
+                                </td>
+                                <td>
+                                    <button type="button" class="ib-delete-btn" onclick="deleteproduct(@prod.ProductId)">
+                                        <i class="bi bi-trash3"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+        }
+        else
+        {
+            <div class="ib-admin-products-empty">
+                <i class="bi bi-box-seam"></i>
+                No products found.
+            </div>
+        }
+    </div>
+</div>
 
-                    }
-                }
-            </tbody>
-        </table>
-
-    </form>
-
-</body>
 <script type="text/javascript">
     function deleteproduct(id) {
 
-        let productId = {
+    if (!confirm("Are you sure you want to delete this product?")) {
+    return;
+    }
 
-            ProductId: id
-        };
-        console.log(productId);
-        let promise1 = axios.post("/Admin/RemovePrdouct", productId);
-        promise1.then((response) => {
-            const result = response.data;
-            if (result != null) {
-               console.log(result);
-               window.location.href="/Admin/ViewAllAdmin";
+    let productId = {
 
-            }
-        });
+    ProductId: id
+    };
+    console.log(productId);
+    let promise1 = axios.post("/Admin/RemovePrdouct", productId);
+    promise1.then((response) => {
+    const result = response.data;
+    if (result != null) {
+    console.log(result);
+    window.location.href = "/Admin/ViewAllAdmin";
+
+    }
+    });
     }
 
 </script>

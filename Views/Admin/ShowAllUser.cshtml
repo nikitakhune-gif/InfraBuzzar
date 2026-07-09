@@ -4,65 +4,229 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 <style>
-    .body2 {
-        font: bold;
+    :root {
+    --ib-navy: #1a3d6d;
+    --ib-navy-dark: #12294a;
+    --ib-orange: #f7941d;
+    --ib-orange-dark: #e08312;
+    }
+
+    .ib-users-page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 20px 60px 20px;
+    }
+
+    .ib-users-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+    gap: 14px;
+    }
+
+    .ib-users-header h2 {
+    color: var(--ib-navy);
+    font-weight: 800;
+    margin: 0;
+    font-size: 26px;
+    }
+
+    .ib-users-header h2 span {
+    color: var(--ib-orange);
+    }
+
+    .ib-users-header p {
+    color: #777;
+    font-size: 14px;
+    margin: 4px 0 0 0;
+    }
+
+    .ib-users-count {
+    background: #eaf1fb;
+    color: var(--ib-navy);
+    font-weight: 700;
+    font-size: 13.5px;
+    padding: 8px 18px;
+    border-radius: 24px;
+    }
+
+    .ib-users-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+    overflow: hidden;
+    }
+
+    .ib-users-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    }
+
+    .ib-users-table thead th {
+    background: var(--ib-navy);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 15px 18px;
+    text-align: left;
+    white-space: nowrap;
+    }
+
+    .ib-users-table tbody td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    vertical-align: middle;
+    }
+
+    .ib-users-table tbody tr:last-child td {
+    border-bottom: none;
+    }
+
+    .ib-users-table tbody tr:hover {
+    background: #f7f9fc;
+    }
+
+    .ib-user-name {
+    font-weight: 600;
+    color: #1f2937;
+    }
+
+    .ib-role-badge {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+    }
+
+    .ib-role-badge.admin {
+    background: #fef1de;
+    color: var(--ib-orange-dark);
+    }
+
+    .ib-role-badge.user {
+    background: #eaf1fb;
+    color: var(--ib-navy);
+    }
+
+    .ib-delete-link {
+    color: #d9534f;
+    font-weight: 700;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    }
+
+    .ib-delete-link:hover {
+    text-decoration: underline;
+    }
+
+    .ib-users-empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: #999;
+    }
+
+    .ib-users-empty i {
+    font-size: 38px;
+    color: #cfd8e6;
+    margin-bottom: 12px;
     }
 </style>
 
-<body class="body2">
-    <form>
-        <table class="table">
-            <tr>
-                <th>UserID</th>
-                <th>User FirstName</th>
-                <th>User LastName</th>
-                <th>User Email</th>
-                <th>User RegistrationDate</th>
-                <th>User Role</th>
-                <th>Action</th>
+<div class="ib-users-page">
+    <div class="ib-users-header">
+        <div>
+            <h2>Registered <span>Users</span></h2>
+            <p>Manage all users registered on the InfraBuzzar platform</p>
+        </div>
+        @{
+            List<User> userlist = ViewData["userlist"] as List<User>;
+        }
+        <span class="ib-users-count"><i class="bi bi-people-fill"></i> @(userlist?.Count ?? 0) Users</span>
+    </div>
 
-            </tr>
-            <tbody>
-                @{
-                    List<User> userlist = ViewData["userlist"] as List<User>;
-                    foreach (User u in userlist)
+    <div class="ib-users-card">
+        @if (userlist != null && userlist.Count > 0)
+        {
+            <table class="ib-users-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Registration Date</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (User u in userlist)
                     {
                         <tr>
-                            <td>@u.UserId</td>
-                            <td>@u.FirstName</td>
-                            <td>@u.LastName</td>
+                            <td>#@u.UserId</td>
+                            <td class="ib-user-name">@u.FirstName</td>
+                            <td class="ib-user-name">@u.LastName</td>
                             <td>@u.Email</td>
                             <td>@u.RegistrationDate</td>
-                            <td>@u.Role</td>
-                            <td><a href="" onclick="deleteuser(@u.UserId)">Delete</a></td>
+                            <td>
+                                <span class="ib-role-badge @(u.Role != null && u.Role.ToLower() == "admin" ? "admin" : "user")">@u.Role</span>
+                            </td>
+                            <td>
+                                <a class="ib-delete-link" onclick="deleteuser(@u.UserId)">
+                                    <i class="bi bi-trash3"></i> Delete
+                                </a>
+                            </td>
                         </tr>
                     }
-                }
-            </tbody>
-        </table>
-    </form>
-</body>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="ib-users-empty">
+                <i class="bi bi-person-x"></i>
+                <p>No users found.</p>
+            </div>
+        }
+    </div>
+</div>
+
 <script type="text/javascript">
 
     function deleteuser(id) {
 
-        let user = {
-            UserId: id
-        };
-        console.log(user);
-        let promise = axios.post("/Admin/DeleteUser", user);
-        promise.then((response) => {
-            const result = response.data;
-            console.log(result);
-            if (result == "user-delete") {
-                window.location.href = "/Admin/ShowAllUser";
-            }
-            else if (result == "Not-Found")
-            {
-                alert("User Not Found");
-            }
-        });
+    if (!confirm("Are you sure you want to delete this user?")) {
+    return;
+    }
+
+    let user = {
+    UserId: id
+    };
+    console.log(user);
+    let promise = axios.post("/Admin/DeleteUser", user);
+    promise.then((response) => {
+    const result = response.data;
+    console.log(result);
+    if (result == "user-delete") {
+    window.location.href = "/Admin/ShowAllUser";
+    }
+    else if (result == "Not-Found") {
+    alert("User Not Found");
+    }
+    });
     }
 </script>
